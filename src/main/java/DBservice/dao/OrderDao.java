@@ -22,4 +22,9 @@ public class OrderDao {
     public OrderDataSet get(long id) throws HibernateException {
         return (OrderDataSet) session.get(OrderDataSet.class, id);
     }
+
+    public OrderDataSet getByData(String signature) throws HibernateException {
+        Criteria criteria = session.createCriteria(OrderDataSet.class);
+        return ((OrderDataSet) criteria.add(Restrictions.eq("signature", signature)).uniqueResult());
+    }
 }

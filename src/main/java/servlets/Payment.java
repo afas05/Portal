@@ -1,7 +1,7 @@
 package servlets;
 
-
-import templater.PageGenerator;
+import DBservice.DBException;
+import DBservice.DBservice;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -21,5 +21,14 @@ public class Payment extends HttpServlet{
         String data = request.getParameter("data");
         String signature = request.getParameter("signature");
 
+        DBservice dBservice = new DBservice();
+
+        try {
+            if (data.equals(dBservice.getOrder(signature).getData()) ) {
+                //API VK.COM razbanit
+            }
+        } catch (DBException e) {
+            e.printStackTrace();
+        }
     }
 }
