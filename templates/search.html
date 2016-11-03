@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Жирный Улов</title>
+</head>
+<body>
+    <p>${vkadres}</p>
+    <p>${rezultat}</p>
+    <p>${otvet}</p>
+
+    <#if otvet == "ПОДЛЕЖИТ">
+        <p>По условия за разбан мы берем номинальную комисию 5 грн., которые идут на поддержку сайта</p>
+        <p></p>
+        <p>
+        <form method="POST" action="/checkout.html">
+            <input type="hidden" name="vkadres" value="${vkadres}" />
+            <input type="image" src="/buton.png" name="btn_text" />
+        </form>
+        </p>
+    </#if>
+<p><a href="/index.html">На главную</a></p>
+</body>
+</html>
