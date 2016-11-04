@@ -1,6 +1,7 @@
 package main;
 
 import org.eclipse.jetty.server.Server;
+import org.eclipse.jetty.server.handler.ResourceHandler;
 import org.eclipse.jetty.servlet.ServletContextHandler;
 import org.eclipse.jetty.servlet.ServletHolder;
 import servlets.Checkout;
@@ -21,6 +22,9 @@ public class Main {
         Checkout checkout = new Checkout();
 
         ServletContextHandler handler = new ServletContextHandler();
+        ResourceHandler resourceHandler = new ResourceHandler();
+
+        resourceHandler.setWelcomeFiles(new String[] {"index.html"} );
 
         handler.addServlet(new ServletHolder(razbanPage), "/razban.html");
         handler.addServlet(new ServletHolder(search), "/search.html");

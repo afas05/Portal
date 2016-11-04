@@ -21,6 +21,10 @@ public class UserDao {
 
     public long getId(String vk) throws HibernateException {
         Criteria criteria = session.createCriteria(UserDataSet.class);
-        return ((UserDataSet) criteria.add(Restrictions.eq("vk", vk)).uniqueResult()).getId();
+        try {
+            return ((UserDataSet) criteria.add(Restrictions.eq("vk", vk)).uniqueResult()).getId();
+        } catch (NullPointerException e) {
+            return 0;
+        }
     }
 }

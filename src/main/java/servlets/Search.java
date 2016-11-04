@@ -24,9 +24,15 @@ public class Search extends HttpServlet {
         Map<String, Object> res = new HashMap<>();
         res.put("vkadres", vkadres);
 
+        VkApiServlet apiServlet = new VkApiServlet();
         DBservice dBservice = new DBservice();
+
         try {
             if (vkadres == null) {
+
+                response.setStatus(HttpServletResponse.SC_FORBIDDEN);
+
+            } else if(vkadres.contains("vk.com")) {
 
                 response.setStatus(HttpServletResponse.SC_FORBIDDEN);
 
@@ -34,6 +40,8 @@ public class Search extends HttpServlet {
 
                 long dataSet = dBservice.getUser(vkadres);
                 if(dataSet == 0) {
+                    res.put("firstName", apiServlet.getFirst(vkadres));
+                    res.put("lastName", apiServlet.getSecond(vkadres));
 
                     res.put("rezultat", "Ты впервые здесь, можем тебя разбанить");
                     res.put("otvet", "ПОДЛЕЖИТ");
@@ -44,6 +52,8 @@ public class Search extends HttpServlet {
                     response.setStatus(HttpServletResponse.SC_OK);
 
                 } else {
+                    res.put("firstName", apiServlet.getFirst(vkadres));
+                    res.put("lastName", apiServlet.getSecond(vkadres));
 
                     res.put("rezultat", "Опача попался! Уже был помилован ранее, второго шанса нет");
                     res.put("otvet", "НЕ ПОДЛЕЖИТ!! GO AWAY BITCH!!");
