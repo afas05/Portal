@@ -33,7 +33,7 @@ public class Checkout extends HttpServlet {
                 params.put("action", "pay");
                 params.put("amount", "5");
                 params.put("currency", "UAH");
-                params.put("description", vk);
+                params.put("description", "Разбан на ЖУ" + vk);
                 params.put("order_id", "id");//OrderDao нужен метод для получение кол-ва записей в таблице
                 params.put("result_url", "");
                 params.put("server_url", "/payment");
