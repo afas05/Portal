@@ -37,6 +37,8 @@ public class Checkout extends HttpServlet {
                 params.put("order_id", "id");//OrderDao нужен метод для получение кол-ва записей в таблице
                 params.put("result_url", "");
                 params.put("server_url", "/payment");
+                params.put("result_url", "/result.html");
+                params.put("sandbox", 1);
                 LiqPay liqpay = new LiqPay("i7745127439", "pqAblB1GfdvJaqP60W7hhj5plT8RJMhGcXDLkOy1");
                 HashMap api = liqpay.cnb_form(params);
 

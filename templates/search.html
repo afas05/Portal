@@ -3,21 +3,48 @@
 <head>
     <meta charset="UTF-8">
     <title>Жирный Улов: Результат проверки</title>
+    <style>
+        body {
+            background-image: url(http://operbox.pp.ua/img/fon2.jpg);
+            background-color: black;
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-position: 0px 100px;
+        }
+        p {
+            text-align: center;
+
+        }
+        .words {
+            margin-top: 390px;
+            font-size: 22px;
+            color: white;
+
+        }
+        .words2 {
+            font-size: 22px;
+            color: white;
+        }
+        .but {
+            width: 150px;
+            text-align: center;
+        }
+
+    </style>
 </head>
 <body>
-    <p>${firstName} ${lastName}</p>
-    <p>${vkadres}</p>
-    <p>${rezultat}</p>
-    <p>${otvet}</p>
+    <p class="words">${firstName} ${lastName}</p>
+    <p class="words2">${vkadres}</p>
+    <p class="words2">${rezultat}</p>
+    <p class="words2">${otvet}</p>
 
     <#if otvet == "ПОДЛЕЖИТ">
-        <p>По условия за разбан мы берем номинальную комисию 5 грн., которые идут на поддержку сайта.
-        Оплата возможна через LiqPay с любой карты.</p>
-        <p></p>
+        <p class="words2">По условия за разбан мы берем номинальную комисию 5 грн., которые идут на поддержку сайта.
+        <br>Оплата возможна через LiqPay с любой карты.</p>
         <p>
         <form method="POST" action="/checkout.html">
             <input type="hidden" name="vkadres" value="${vkadres}" />
-            <input type="image" src="/buton.png" name="btn_text" />
+            <input class="but" type="image" src="http://operbox.pp.ua/img/razbuton2.png" name="but" />
         </form>
         </p>
     </#if>

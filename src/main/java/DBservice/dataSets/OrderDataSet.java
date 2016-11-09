@@ -19,7 +19,7 @@ public class OrderDataSet implements Serializable{
     @Column(name = "vk", unique = true, updatable = false)
     private String vk;
 
-    @Column(name = "data", unique = true, updatable = false)
+    @Column(name = "data", unique = true, updatable = false, columnDefinition="TEXT")
     private String data;
 
     @Column(name = "signature", unique = true, updatable = false)
