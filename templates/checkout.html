@@ -4,8 +4,25 @@
     <meta charset="UTF-8">
     <title>Жирный Улов: Подтверждение</title>
 </head>
+<style>
+    body {
+        background-image: url(http://operbox.pp.ua/img/fon2.jpg);
+        background-color: black;
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-position: 0px 100px;
+    }
+    .text {
+        padding-top: 400px;
+    }
+    p {
+        color: white;
+        font-size: 28px;
+        text-align: center;
+    }
+</style>
 <body>
-    <p>:Ваша страница ${vk}</p>
+    <p class="text">Ваша страница: ${vk}</p>
     <p>Выбери способ оплаты:</p>
     <p>
     <form method="POST" accept-charset="utf-8" action="https://www.liqpay.com/api/3/checkout">
