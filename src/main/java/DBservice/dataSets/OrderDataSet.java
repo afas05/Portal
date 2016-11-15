@@ -25,7 +25,7 @@ public class OrderDataSet implements Serializable{
     @Column(name = "signature", unique = true, updatable = false)
     private String signature;
 
-    @Column(name = "payBy", unique = true, updatable = false)
+    @Column(name = "payBy", unique = false, updatable = false)
     private String payBy;
 
     public OrderDataSet() {}

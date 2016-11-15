@@ -88,13 +88,25 @@ public class DBservice {
         }
     }
 
-    public OrderDataSet getOrder(String signature)  throws DBException {
+    public OrderDataSet getOrderById(long id)  throws DBException {
         try {
             Session session = sessionFactory.openSession();
             OrderDao dao = new OrderDao(session);
-            OrderDataSet orderDataSet = dao.getByData(signature);
+            OrderDataSet orderDataSet = dao.get(id);
             session.close();
             return orderDataSet;
+        } catch (HibernateException e) {
+            throw  new DBException(e);
+        }
+    }
+
+    public long getRowCount()  throws DBException {
+        try {
+            Session session = sessionFactory.openSession();
+            OrderDao dao = new OrderDao(session);
+            long rows = dao.getRowCount();
+            session.close();
+            return rows;
         } catch (HibernateException e) {
             throw  new DBException(e);
         }

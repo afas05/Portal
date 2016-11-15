@@ -27,4 +27,8 @@ public class OrderDao {
         Criteria criteria = session.createCriteria(OrderDataSet.class);
         return ((OrderDataSet) criteria.add(Restrictions.eq("signature", signature)).uniqueResult());
     }
+
+    public long getRowCount() throws HibernateException {
+        return ( (Long) session.createQuery("select count(*) from OrderDataSet").iterate().next() ).intValue();
+    }
 }
