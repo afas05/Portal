@@ -35,7 +35,7 @@ public class Checkout extends HttpServlet {
                 params.put("amount", "5");
                 params.put("currency", "UAH");
                 params.put("description", "Разбан на ЖУ " + vk);
-                params.put("order_id", dBservice.getRowCount());
+                params.put("order_id", dBservice.getRowCount()+1);
                 params.put("result_url", "");
                 params.put("server_url", "http://31.131.23.184:8080/payment.html");
                 params.put("result_url", "http://31.131.23.184:8080/result.html");

@@ -24,6 +24,8 @@ public class Payment extends HttpServlet{
             throws ServletException, IOException {
 
         String data = request.getParameter("data");
+        System.out.println(data);
+        System.out.println("-----------data");
 
         DBservice dBservice = new DBservice();
         VkApiServlet vkApi = new VkApiServlet();
@@ -32,23 +34,37 @@ public class Payment extends HttpServlet{
             byte[] dataByte = Base64.decode(data);
             String dataString = new String(dataByte, "UTF-8");
             JsonObject dataJson = new JsonParser().parse(dataString).getAsJsonObject();
-            int order_id = Integer.parseInt(dataJson.get("order_id").getAsString());
+            long order_id = Long.parseLong(dataJson.get("order_id").getAsString());
+            System.out.println(order_id);
+            System.out.println("-----------order_id");
 
             OrderDataSet dataSet = dBservice.getOrderById(order_id);
             String vk = dataSet.getVk();
+            System.out.println(vk);
+            System.out.println("-----------vk");
 
             String status = dataJson.get("status").getAsString();
+            System.out.println(status);
+            System.out.println("-----------status");
             float amount = Float.parseFloat(dataJson.get("amount").getAsString());
+            System.out.println(amount);
+            System.out.println("-----------amount");
 
-            if (status.equals("sanbox") && amount == 5.0) {
+            if (status.equals("sandbox") && amount == 5.0) {
 
                 vkApi.razban(vk);
 
+                System.out.println("-----------vk - razbaneno");
                 dBservice.addUser(vk);
+
+                System.out.println("-----------db dobaleno");
             }
         } catch (DBException | ApiException | ClientException | Base64DecodingException e) {
             e.printStackTrace();
+        } catch (NullPointerException c) {
+            response.setStatus(HttpServletResponse.SC_FORBIDDEN);
         }
 
+        response.setStatus(HttpServletResponse.SC_OK);
     }
 }

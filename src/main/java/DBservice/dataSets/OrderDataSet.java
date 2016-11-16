@@ -16,16 +16,16 @@ public class OrderDataSet implements Serializable{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @Column(name = "vk", unique = true, updatable = false)
+    @Column(name = "vk", updatable = false)
     private String vk;
 
-    @Column(name = "data", unique = true, updatable = false, columnDefinition="TEXT")
+    @Column(name = "data", updatable = false, columnDefinition="TEXT")
     private String data;
 
-    @Column(name = "signature", unique = true, updatable = false)
+    @Column(name = "signature", updatable = false)
     private String signature;
 
-    @Column(name = "payBy", unique = false, updatable = false)
+    @Column(name = "payBy", updatable = false)
     private String payBy;
 
     public OrderDataSet() {}

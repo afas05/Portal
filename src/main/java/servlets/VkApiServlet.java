@@ -56,6 +56,7 @@ public class VkApiServlet {
 
     public int getId(String vk) throws ApiException, ClientException{
         int id = apiClient.users().get().userIds(vk).execute().get(0).getId();
+        System.out.println(id + "---------------id vk in API class");
         return id;
     }
 }
