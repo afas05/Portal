@@ -32,7 +32,7 @@ public class Main {
         handler.addServlet(new ServletHolder(result), "/result.html");
         handler.addServlet(new ServletHolder(index), "/");
 
-        Server server = new Server(8080);
+        Server server = new Server(80);
 
         server.setHandler(handler);
 
