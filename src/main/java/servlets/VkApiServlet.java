@@ -7,6 +7,7 @@ import com.vk.api.sdk.exceptions.ApiException;
 import com.vk.api.sdk.exceptions.ClientException;
 import com.vk.api.sdk.httpclient.HttpTransportClient;
 import com.vk.api.sdk.objects.base.responses.OkResponse;
+import com.vk.api.sdk.objects.groups.responses.GetBannedResponse;
 
 /**
  * Created by Игорь on 04.11.2016.
@@ -50,14 +51,16 @@ public class VkApiServlet {
         return secName;
     }
 
-    public void razban(String vk) throws ApiException, ClientException {
+    public String razban(String vk) throws ApiException, ClientException {
         int id = getId(vk);
         OkResponse res = apiClient.groups().unbanUser(actor, 115050558, id).execute();
-        System.out.println(res+"---------------res");
+        String r = res.toString();
+        return r;
     }
 
     public int getId(String vk) throws ApiException, ClientException{
         int id = apiClient.users().get().userIds(vk).execute().get(0).getId();
         return id;
     }
+
 }

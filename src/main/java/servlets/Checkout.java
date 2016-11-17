@@ -38,7 +38,7 @@ public class Checkout extends HttpServlet {
                 params.put("order_id", dBservice.getRowCount()+1);
                 params.put("result_url", "");
                 params.put("server_url", "http://31.131.23.184:8080/payment.html");
-                params.put("result_url", "http://31.131.23.184:8080/result.html");
+                params.put("result_url", "http://31.131.23.184:8080/rezult.html?vk="+vk);
                 params.put("sandbox", 1);
                 LiqPay liqpay = new LiqPay("i7745127439", "pqAblB1GfdvJaqP60W7hhj5plT8RJMhGcXDLkOy1");
                 HashMap api = liqpay.cnb_form(params);

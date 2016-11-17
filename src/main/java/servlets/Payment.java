@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+
 import com.sun.org.apache.xml.internal.security.utils.Base64;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
@@ -25,7 +26,6 @@ public class Payment extends HttpServlet{
 
         String data = request.getParameter("data");
         System.out.println(data);
-        System.out.println("-----------data");
 
         DBservice dBservice = new DBservice();
         VkApiServlet vkApi = new VkApiServlet();
@@ -53,11 +53,8 @@ public class Payment extends HttpServlet{
             if (status.equals("sandbox") && amount == 5.0) {
 
                 vkApi.razban(vk);
-
-                System.out.println("-----------vk - razbaneno");
                 dBservice.addUser(vk);
 
-                System.out.println("-----------db dobaleno");
             }
         } catch (DBException | ApiException | ClientException | Base64DecodingException e) {
             e.printStackTrace();
@@ -67,4 +64,5 @@ public class Payment extends HttpServlet{
 
         response.setStatus(HttpServletResponse.SC_OK);
     }
+
 }
