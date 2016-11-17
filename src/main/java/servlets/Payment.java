@@ -52,14 +52,18 @@ public class Payment extends HttpServlet{
 
             if (status.equals("sandbox") && amount == 5.0) {
 
-                vkApi.razban(vk);
-                dBservice.addUser(vk);
-
+                synchronized (this) {
+                    vkApi.razban(vk);
+                    dBservice.addUser(vk);
+                    Thread.sleep(334);
+                }
             }
         } catch (DBException | ApiException | ClientException | Base64DecodingException e) {
             e.printStackTrace();
         } catch (NullPointerException c) {
             response.setStatus(HttpServletResponse.SC_FORBIDDEN);
+        } catch (InterruptedException g) {
+            System.out.println("Thread interupted");
         }
 
         response.setStatus(HttpServletResponse.SC_OK);
