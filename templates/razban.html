@@ -5,11 +5,9 @@
     <title>Жирный Улов</title>
     <style>
         body {
-            background-image: url(http://operbox.pp.ua/img/fonS.jpg);
             background-color: black;
             background-repeat: no-repeat;
             background-size: cover;
-            background-position: 0px 100px;
         }
         p {
             text-align: center;
@@ -20,7 +18,7 @@
         .fild {
             width: 210px;
             height: 30px;
-            margin-top: 450px;
+            margin-top: 350px;
             font-size: 26px;
         }
 
@@ -42,16 +40,23 @@
         .but {
             width: 150px;
         }
+        .wrapper{
+            background-image: url(http://operbox.pp.ua/img/fon2.jpg);
+            position: relative;
+            width: 1200px;
+            height: 676px;
+            margin: 0 auto;
+        }
     </style>
 </head>
 <body>
-
+<div class="wrapper">
     <p><form class="drat" action="/search.html" method="POST">
         <input class="fild" type="text" name="fild">
         <input class="but" type="image" src="http://operbox.pp.ua/img/razbuton2.png" name="but">
     </form></p>
 
     <p><a class="ghost-button" href="/index.html">На главную</a></p>
-
+</div>
 </body>
 </html>
