@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Жирный Улов</title>
+    <!--<script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>-->
     <style>
         body {
             background-color: black;
@@ -17,12 +18,13 @@
         }
         .fild {
             width: 210px;
-            height: 30px;
+            height: 37px;
             margin-top: 350px;
             font-size: 26px;
         }
 
         .ghost-button {
+            margin-top: 150px;
             display: inline-block;
             width: 200px;
             padding: 8px;
@@ -38,7 +40,8 @@
             color: #000;
         }
         .but {
-            width: 150px;
+            width: 127px;
+            margin-bottom: -11px;
         }
         .wrapper{
             background-image: url(http://operbox.pp.ua/img/fon2.jpg);
@@ -47,13 +50,18 @@
             height: 676px;
             margin: 0 auto;
         }
+        .alarm {
+            margin-bottom: -326px;
+            height: 72px;
+        }
     </style>
 </head>
 <body>
 <div class="wrapper">
+    <p><img class="alarm" src="http://operbox.pp.ua/img/alarm.png"></p>
     <p><form class="drat" action="/search.html" method="POST">
-        <input class="fild" type="text" name="fild">
-        <input class="but" type="image" src="http://operbox.pp.ua/img/razbuton2.png" name="but">
+        <input class="fild" id="message" required type="text" name="fild">
+        <input class="but" type="image" src="http://operbox.pp.ua/img/find.png" name="but">
     </form></p>
 
     <p><a class="ghost-button" href="/index.html">На главную</a></p>

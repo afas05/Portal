@@ -7,30 +7,26 @@
     <style>
         body {
             background-color: black;
+			padding-top: 10px;
         }
         p {
             text-align: center;
-        }
-        .words {
-            margin-top: 200px;
-            font-size: 22px;
+			font-size: 22px;
             color: white;
         }
-        .words2 {
 
-            font-size: 22px;
-            color: white;
-        }
         .but {
             width: 150px;
             text-align: center;
         }
         .wrapper{
             background-image: url(http://operbox.pp.ua/img/fon2.jpg);
+			background-repeat: no-repeat;
             position: relative;
             width: 1200px;
             height: 676px;
             margin: 0 auto;
+			padding-top: 250px;
         }
         form {
             text-align: center;
@@ -39,9 +35,9 @@
 </head>
 <body>
 <div class="wrapper">
-    <p class="words">${firstName} ${lastName}</p>
-    <p class="words2">${vkadres}</p>
-    <p class="words2">${rezultat}</p>
+    <p>${firstName} ${lastName}</p>
+    <p>${vkadres}</p>
+    <p>${rezultat}</p>
 
     <#if otvet == "ПОДЛЕЖИТ">
         <p class="words2">По условия за разбан мы берем номинальную комисию 5 грн., которые идут на поддержку сайта.
