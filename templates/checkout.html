@@ -36,11 +36,23 @@
     <p class="text">Ваша страница: ${vk}</p>
     <p>Выбери способ оплаты:</p>
 
-    <form method="POST" accept-charset="utf-8" action="https://www.liqpay.com/api/3/checkout">
-        <input type="hidden" name="data" value="${data}" />
-        <input type="hidden" name="signature" value="${signature}" />
-        <input type="image" src="//static.liqpay.com/buttons/p1ru.radius.png" name="btn_text" />
-    </form>
+    <<form method="POST" accept-charset="utf-8" action="https://secure.wayforpay.com/pay">
+    <input type="hidden" name="merchantAccount" value="jirniy_pp_ua" />
+    <input type="hidden" name="merchantAuthType" value="SimpleSignature" />
+    <input type="hidden" name="merchantDomainName" value="jirniy.pp.ua" />
+    <input type="hidden" name="merchantSignature" value="${sign}" />
+    <input type="hidden" name="returnUrl" value="http://jirniy.pp.ua/result.html" />
+    <input type="hidden" name="serviceUrl" value="http://jirniy.pp.ua/payment.html" />
+    <input type="hidden" name="orderReference" value="${id}" />
+    <input type="hidden" name="orderDate" value="${date}" />
+    <input type="hidden" name="amount" value="5" />
+    <input type="hidden" name="currency" value="UAH" />
+    <input type="hidden" name="orderTimeout" value="49000" />
+    <input type="hidden" name="productName[]" value="Разбан в ЖУ ${vk}" />
+    <input type="hidden" name="productPrice[]" value="5" />
+    <input type="hidden" name="productCount[]" value="1" />
+    <input type="image" src="//static.liqpay.com/buttons/p1ru.radius.png" name="btn_text" />
+</form>
 
 </div>
 </body>

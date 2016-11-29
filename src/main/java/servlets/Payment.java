@@ -3,7 +3,6 @@ package servlets;
 import DBservice.DBException;
 import DBservice.DBservice;
 import DBservice.dataSets.OrderDataSet;
-import com.sun.org.apache.xml.internal.security.exceptions.Base64DecodingException;
 import com.vk.api.sdk.exceptions.ApiException;
 import com.vk.api.sdk.exceptions.ClientException;
 import javax.servlet.ServletException;
@@ -11,10 +10,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-
-import com.sun.org.apache.xml.internal.security.utils.Base64;
+import java.util.Map;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import org.json.simple.JSONObject;
 
 /**
  * Created by Игорь on 01.11.2016.
@@ -24,17 +23,21 @@ public class Payment extends HttpServlet{
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        String data = request.getParameter("data");
-        System.out.println(data);
+        Map<String, String[]> a = request.getParameterMap();
+        String s = "";
+        for (Map.Entry<String, String[]> entry: a.entrySet()) {
+            s = entry.getKey();
+        }
+
+        String rS = "";
 
         DBservice dBservice = new DBservice();
         VkApiServlet vkApi = new VkApiServlet();
+        Wfp wfp = new Wfp();
 
         try {
-            byte[] dataByte = Base64.decode(data);
-            String dataString = new String(dataByte, "UTF-8");
-            JsonObject dataJson = new JsonParser().parse(dataString).getAsJsonObject();
-            long order_id = Long.parseLong(dataJson.get("order_id").getAsString());
+            JsonObject json = new JsonParser().parse(s).getAsJsonObject();
+            long order_id = Long.parseLong(json.get("orderReference").getAsString());
             System.out.println(order_id);
             System.out.println("-----------order_id");
 
@@ -43,14 +46,17 @@ public class Payment extends HttpServlet{
             System.out.println(vk);
             System.out.println("-----------vk");
 
-            String status = dataJson.get("status").getAsString();
+            String status = json.get("transactionStatus").getAsString();
             System.out.println(status);
             System.out.println("-----------status");
-            float amount = Float.parseFloat(dataJson.get("amount").getAsString());
+            float amount = json.get("amount").getAsFloat();
             System.out.println(amount);
             System.out.println("-----------amount");
+            String time = json.get("processingDate").getAsString();
+            System.out.println(amount);
+            System.out.println("-----------time");
 
-            if (status.equals("sandbox") && amount == 5.0) {
+            if ("Approved".equals(status) && amount == 5.0) {
 
                 synchronized (this) {
                     vkApi.razban(vk);
@@ -58,7 +64,18 @@ public class Payment extends HttpServlet{
                     Thread.sleep(334);
                 }
             }
-        } catch (DBException | ApiException | ClientException | Base64DecodingException e) {
+
+            String params = order_id + ";accept;" + time.toString();
+            String sign = wfp.generateSign(params);
+
+            JSONObject responseJson = new JSONObject();
+            responseJson.put("orderReference", order_id);
+            responseJson.put("status", "accept");
+            responseJson.put("time", time);
+            responseJson.put("signature", sign);
+            rS = responseJson.toString();
+
+        } catch (DBException | ApiException | ClientException e) {
             e.printStackTrace();
         } catch (NullPointerException c) {
             response.setStatus(HttpServletResponse.SC_FORBIDDEN);
@@ -66,6 +83,9 @@ public class Payment extends HttpServlet{
             System.out.println("Thread interupted");
         }
 
+        response.getOutputStream().write(rS.getBytes("UTF-8"));
+        response.setContentType("application/json; charset=UTF-8");
+        response.setHeader("response", "*");
         response.setStatus(HttpServletResponse.SC_OK);
     }
 

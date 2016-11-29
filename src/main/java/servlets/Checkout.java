@@ -2,15 +2,19 @@ package servlets;
 
 import DBservice.DBservice;
 import DBservice.DBException;
-import com.sun.glass.ui.SystemClipboard;
-import liqpay.LiqPay;
+import org.apache.commons.codec.binary.Hex;
 import templater.PageGenerator;
 
+import javax.crypto.Mac;
+import javax.crypto.spec.SecretKeySpec;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.security.InvalidKeyException;
+import java.security.NoSuchAlgorithmException;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -29,25 +33,18 @@ public class Checkout extends HttpServlet {
 
             if (dBservice.getUser(vk) == 0) {
 
-                //liqpay: generate data & signature strings
-                HashMap params = new HashMap();
-                params.put("action", "pay");
-                params.put("amount", "5");
-                params.put("currency", "UAH");
-                params.put("description", "Разбан на ЖУ " + vk);
-                params.put("order_id", dBservice.getRowCount()+1);
-                params.put("result_url", "");
-                params.put("server_url", "http://jirniy.pp.ua/payment.html");
-                params.put("result_url", "http://jirniy.pp.ua/result.html?vk="+vk);
-                params.put("sandbox", 1);
-                LiqPay liqpay = new LiqPay("i7745127439", "pqAblB1GfdvJaqP60W7hhj5plT8RJMhGcXDLkOy1");
-                HashMap api = liqpay.cnb_form(params);
+                //generate signature and date
+                String date = new Date().toString();
+                String params = "jirniy_pp_ua;jirniy.pp.ua;"+(dBservice.getRowCount()+1)+";"+date+";5;UAH;Разбан в ЖУ "+vk+";1;5";
+                Wfp wfp = new Wfp();
+                String sign = wfp.generateSign(params);
 
-                dBservice.addOrder(vk, api.get("data").toString(), api.get("signature").toString(), "lp");
+                dBservice.addOrder(vk, date, sign, "wfp");
 
                 res.put("vk", vk);
-                res.put("data", api.get("data").toString());
-                res.put("signature", api.get("signature").toString());
+                res.put("sign",sign);
+                res.put("id", dBservice.getRowCount()+1);
+                res.put("date", date);
 
                 response.setCharacterEncoding("utf-8");
                 response.getWriter().println(PageGenerator.instance().getPage("checkout.html", res));
