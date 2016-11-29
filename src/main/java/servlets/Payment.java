@@ -38,25 +38,18 @@ public class Payment extends HttpServlet{
         try {
             JsonObject json = new JsonParser().parse(s).getAsJsonObject();
             long order_id = Long.parseLong(json.get("orderReference").getAsString());
-            System.out.println(order_id);
-            System.out.println("-----------order_id");
 
             OrderDataSet dataSet = dBservice.getOrderById(order_id);
             String vk = dataSet.getVk();
-            System.out.println(vk);
-            System.out.println("-----------vk");
 
             String status = json.get("transactionStatus").getAsString();
-            System.out.println(status);
-            System.out.println("-----------status");
-            float amount = json.get("amount").getAsFloat();
-            System.out.println(amount);
-            System.out.println("-----------amount");
-            String time = json.get("processingDate").getAsString();
-            System.out.println(amount);
-            System.out.println("-----------time");
 
-            if ("Approved".equals(status) && amount == 5.0) {
+            float amount = json.get("amount").getAsFloat();
+
+            String time = json.get("processingDate").getAsString();
+
+
+            if ("Approved".equals(status) && amount == 5.0 ) {
 
                 synchronized (this) {
                     vkApi.razban(vk);

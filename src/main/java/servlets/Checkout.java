@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -34,8 +35,13 @@ public class Checkout extends HttpServlet {
             if (dBservice.getUser(vk) == 0) {
 
                 //generate signature and date
-                String date = new Date().toString();
-                String params = "jirniy_pp_ua;jirniy.pp.ua;"+(dBservice.getRowCount()+1)+";"+date+";5;UAH;Разбан в ЖУ "+vk+";1;5";
+                Date curDate = new Date();
+                SimpleDateFormat sd = new SimpleDateFormat("ddMMyyyyhhmm");
+                String date = sd.format(curDate);
+                System.out.println(date);
+                long id = dBservice.getRowCount()+1;
+                String params = "jirniy_pp_ua;jirniy.pp.ua;"+id+";"+date+";5;UAH;Разбан в ЖУ "+vk+";1;5";
+
                 Wfp wfp = new Wfp();
                 String sign = wfp.generateSign(params);
 
@@ -43,7 +49,7 @@ public class Checkout extends HttpServlet {
 
                 res.put("vk", vk);
                 res.put("sign",sign);
-                res.put("id", dBservice.getRowCount()+1);
+                res.put("id", id);
                 res.put("date", date);
 
                 response.setCharacterEncoding("utf-8");

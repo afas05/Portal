@@ -16,6 +16,30 @@ import DBservice.DBException;
  */
 public class Result extends HttpServlet {
     @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        HashMap res = new HashMap();
+        String vk = request.getParameter("vk");
+        DBservice dBservice = new DBservice();
+        try {
+            long dataSet = dBservice.getUser(vk);
+
+            if (dataSet == 0) {
+                response.setCharacterEncoding("utf-8");
+                response.getWriter().println(PageGenerator.instance().getPage("wait.html", res));
+                response.setContentType("text/html;charset=utf-8");
+                response.setStatus(HttpServletResponse.SC_OK);
+            } else {
+                response.setCharacterEncoding("utf-8");
+                response.getWriter().println(PageGenerator.instance().getPage("result.html", res));
+                response.setContentType("text/html;charset=utf-8");
+                response.setStatus(HttpServletResponse.SC_OK);
+            }
+        } catch (DBException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HashMap res = new HashMap();
         String vk = request.getParameter("vk");
