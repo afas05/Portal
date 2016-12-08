@@ -2,20 +2,14 @@ package servlets;
 
 import DBservice.DBservice;
 import DBservice.DBException;
-import org.apache.commons.codec.binary.Hex;
 import templater.PageGenerator;
 
-import javax.crypto.Mac;
-import javax.crypto.spec.SecretKeySpec;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.security.InvalidKeyException;
-import java.security.NoSuchAlgorithmException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.sql.Timestamp;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -35,9 +29,9 @@ public class Checkout extends HttpServlet {
             if (dBservice.getUser(vk) == 0) {
 
                 //generate signature and date
-                Date curDate = new Date();
-                SimpleDateFormat sd = new SimpleDateFormat("ddMMyyyyhhmm");
-                String date = sd.format(curDate);
+
+                Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+                String date = String.valueOf(timestamp.getTime());
                 System.out.println(date);
                 long id = dBservice.getRowCount()+1;
                 String params = "jirniy_pp_ua;jirniy.pp.ua;"+id+";"+date+";5;UAH;Разбан в ЖУ "+vk+";1;5";

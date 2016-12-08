@@ -30,24 +30,22 @@ public class Payment extends HttpServlet{
         }
 
         String rS = "";
-
+        System.out.println(s);
         DBservice dBservice = new DBservice();
         VkApiServlet vkApi = new VkApiServlet();
         Wfp wfp = new Wfp();
 
         try {
             JsonObject json = new JsonParser().parse(s).getAsJsonObject();
+            System.out.println(json);
             long order_id = Long.parseLong(json.get("orderReference").getAsString());
 
             OrderDataSet dataSet = dBservice.getOrderById(order_id);
             String vk = dataSet.getVk();
 
             String status = json.get("transactionStatus").getAsString();
-
             float amount = json.get("amount").getAsFloat();
-
             String time = json.get("processingDate").getAsString();
-
 
             if ("Approved".equals(status) && amount == 5.0 ) {
 

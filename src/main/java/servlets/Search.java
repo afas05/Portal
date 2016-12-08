@@ -28,13 +28,12 @@ public class Search extends HttpServlet {
         DBservice dBservice = new DBservice();
 
         try {
-            if (vkadres == null) {
+            if(vkadres.contains("vk.com")) {
 
-                response.setStatus(HttpServletResponse.SC_FORBIDDEN);
-
-            } else if(vkadres.contains("vk.com")) {
-
-                response.setStatus(HttpServletResponse.SC_FORBIDDEN);
+                response.setCharacterEncoding("utf-8");
+                response.getWriter().println(PageGenerator.instance().getPage("razban.html", res));
+                response.setContentType("text/html;charset=utf-8");
+                response.setStatus(HttpServletResponse.SC_OK);
 
             } else {
 

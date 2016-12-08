@@ -54,13 +54,15 @@
             margin-bottom: -326px;
             height: 72px;
         }
+
     </style>
 </head>
 <body>
 <div class="wrapper">
     <p><img class="alarm" src="http://operbox.pp.ua/img/alarm.png"></p>
+
     <p><form class="drat" action="/search.html" method="POST">
-        <input class="fild" id="message" required type="text" name="fild">
+        <input class="fild" id="message" required pattern="^[a-z0-9_\.-]+$" type="text" name="fild">
         <input class="but" type="image" src="http://operbox.pp.ua/img/find.png" name="but">
     </form></p>
 
