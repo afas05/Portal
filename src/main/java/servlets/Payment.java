@@ -37,7 +37,9 @@ public class Payment extends HttpServlet{
 
         try {
             JsonObject json = new JsonParser().parse(s).getAsJsonObject();
+            System.out.println("------------------------");
             System.out.println(json);
+            System.out.println("------------------------");
             long order_id = Long.parseLong(json.get("orderReference").getAsString());
 
             OrderDataSet dataSet = dBservice.getOrderById(order_id);
@@ -51,6 +53,7 @@ public class Payment extends HttpServlet{
 
                 synchronized (this) {
                     vkApi.razban(vk);
+                    System.out.println("-----Razbanil "+vk);
                     dBservice.addUser(vk);
                     Thread.sleep(334);
                 }
