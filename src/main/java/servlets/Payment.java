@@ -52,10 +52,15 @@ public class Payment extends HttpServlet{
             if ("Approved".equals(status) && amount == 5.0 ) {
 
                 synchronized (this) {
-                    vkApi.razban(vk);
-                    System.out.println("-----Razbanil "+vk);
-                    dBservice.addUser(vk);
-                    Thread.sleep(334);
+                     try {
+                         vkApi.razban(vk);
+                         System.out.println("-----Razbanil " + vk);
+                         dBservice.addUser(vk);
+                         Thread.sleep(334);
+                     } catch (ApiException e) {
+                         System.out.println("-----Ne Razbanil " + vk);
+                         System.out.println(e.getDescription());
+                     }
                 }
             }
 
@@ -69,7 +74,7 @@ public class Payment extends HttpServlet{
             responseJson.put("signature", sign);
             rS = responseJson.toString();
 
-        } catch (DBException | ApiException | ClientException e) {
+        } catch (DBException | ClientException e) {
             e.printStackTrace();
         } catch (NullPointerException c) {
             response.setStatus(HttpServletResponse.SC_FORBIDDEN);
