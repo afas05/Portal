@@ -3,6 +3,7 @@ package servlets;
 import DBservice.DBException;
 import DBservice.DBservice;
 import DBservice.dataSets.OrderDataSet;
+import com.vk.api.sdk.exceptions.ApiAuthValidationException;
 import com.vk.api.sdk.exceptions.ApiException;
 import com.vk.api.sdk.exceptions.ClientException;
 import javax.servlet.ServletException;
@@ -59,7 +60,7 @@ public class Payment extends HttpServlet{
                          Thread.sleep(334);
                      } catch (ApiException e) {
                          System.out.println("-----Ne Razbanil " + vk);
-                         System.out.println(e.getDescription());
+                         e.printStackTrace();
                      }
                 }
             }
