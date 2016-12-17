@@ -17,7 +17,7 @@ public class VkApiServlet {
     private VkApiClient apiClient;
     private UserActor actor;
     private int appId = 17508531;
-    private String token = "7b168496c726d181c55bf189fc40b652c7620dbf7593955ceaea07522e41dc6ab2ed8350bfd4645a0f8df";
+    private String token = "my token";
 
     public VkApiServlet() {
         TransportClient transportClient = HttpTransportClient.getInstance();
