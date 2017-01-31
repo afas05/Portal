@@ -33,7 +33,7 @@ public class Checkout extends HttpServlet {
                 Timestamp timestamp = new Timestamp(System.currentTimeMillis());
                 String date = String.valueOf(timestamp.getTime());
                 System.out.println(date);
-                long id = dBservice.getRowCount()+1;
+                long id = dBservice.getRowCount()+2; //database has on 1 less row
                 String params = "jirniy_pp_ua;jirniy.pp.ua;"+id+";"+date+";5;UAH;Разбан в ЖУ "+vk+";1;5";
 
                 Wfp wfp = new Wfp();
@@ -51,6 +51,7 @@ public class Checkout extends HttpServlet {
                 response.setContentType("text/html;charset=utf-8");
                 response.setStatus(HttpServletResponse.SC_OK);
             }
+            dBservice.closeFactory();
         } catch (DBException e) {}
     }
 }

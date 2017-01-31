@@ -11,10 +11,12 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.Map;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import org.json.simple.JSONObject;
+import templater.PageGenerator;
 
 /**
  * Created by Игорь on 01.11.2016.
@@ -54,7 +56,7 @@ public class Payment extends HttpServlet{
 
                 synchronized (this) {
                      try {
-                         vkApi.razban(vk);
+                         System.out.println(vkApi.razban(vk));
                          System.out.println("-----Razbanil " + vk);
                          dBservice.addUser(vk);
                          Thread.sleep(334);
@@ -83,6 +85,7 @@ public class Payment extends HttpServlet{
             System.out.println("Thread interupted");
         }
 
+        dBservice.closeFactory();
         response.getOutputStream().write(rS.getBytes("UTF-8"));
         response.setContentType("application/json; charset=UTF-8");
         response.setHeader("response", "*");

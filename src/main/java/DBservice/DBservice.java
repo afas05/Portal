@@ -111,4 +111,8 @@ public class DBservice {
             throw  new DBException(e);
         }
     }
+
+    public void closeFactory() {
+        sessionFactory.close();
+    }
 }

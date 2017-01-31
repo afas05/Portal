@@ -67,5 +67,6 @@ public class Search extends HttpServlet {
         } catch (DBException e) {
             e.printStackTrace();
         }
+        dBservice.closeFactory();
     }
 }
