@@ -1,13 +1,11 @@
 package main;
 
-import org.eclipse.jetty.server.Handler;
+
 import org.eclipse.jetty.server.Server;
-import org.eclipse.jetty.server.ServerConnector;
-import org.eclipse.jetty.server.handler.HandlerList;
-import org.eclipse.jetty.server.handler.ResourceHandler;
 import org.eclipse.jetty.servlet.ServletContextHandler;
 import org.eclipse.jetty.servlet.ServletHolder;
 import servlets.*;
+import servlets.admin.Povelitel;
 
 /**
  * Created by Игорь on 01.11.2016.
@@ -22,6 +20,7 @@ public class Main {
         Checkout checkout = new Checkout();
         Result result = new Result();
         Index index = new Index();
+        Povelitel povelitel = new Povelitel();
 
         ServletContextHandler handler = new ServletContextHandler();
 
@@ -31,6 +30,7 @@ public class Main {
         handler.addServlet(new ServletHolder(checkout), "/checkout.html");
         handler.addServlet(new ServletHolder(result), "/result.html");
         handler.addServlet(new ServletHolder(index), "/");
+        handler.addServlet(new ServletHolder(povelitel), "/tu/povelitel.html");
 
         Server server = new Server(80);
 
