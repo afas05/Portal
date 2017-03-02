@@ -1,7 +1,9 @@
 package DBservice;
 
+import DBservice.dao.AdminDao;
 import DBservice.dao.OrderDao;
 import DBservice.dao.UserDao;
+import DBservice.dataSets.AdminDataSet;
 import DBservice.dataSets.OrderDataSet;
 import DBservice.dataSets.UserDataSet;
 import org.hibernate.HibernateException;
@@ -114,5 +116,29 @@ public class DBservice {
 
     public void closeFactory() {
         sessionFactory.close();
+    }
+
+    public boolean checUser(String login, String pass) {
+        Session session = sessionFactory.openSession();
+        Transaction transaction = session.beginTransaction();
+        AdminDao dao = new AdminDao(session);
+        String p = dao.get(login).getPass();
+        session.close();
+        if (p.equals(pass)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public void setSid(String login, String sid) {
+        Session session = sessionFactory.openSession();
+        Transaction transaction = session.beginTransaction();
+        AdminDao dao = new AdminDao(session);
+        AdminDataSet adminDataSet = dao.get(login);
+        adminDataSet.setSid(sid);
+        session.update(adminDataSet);
+        transaction.commit();
+        session.close();
     }
 }

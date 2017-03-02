@@ -17,7 +17,7 @@ public class VkApiServlet {
     private VkApiClient apiClient;
     private UserActor actor;
     private int appId = 17508531;
-    private String token = "8960b3e73a8120ff0258bb17569a191d14aa8b972f3fafdf5c62cddd06fd615635eb228a1dfe5271e3c05";
+    private String token = "a1730ecc53e177bb79c6e383131599fd740074baa3badd92a51d3066dddc3f84faad6c2c94618a5fa4c78";
 
     public VkApiServlet() {
         TransportClient transportClient = HttpTransportClient.getInstance();
@@ -52,6 +52,7 @@ public class VkApiServlet {
     }
 
     public String razban(String vk) throws ApiException, ClientException {
+
         int id = getId(vk);
         OkResponse res = apiClient.groups().unbanUser(actor, 115050558, id).execute();
         String r = res.toString();

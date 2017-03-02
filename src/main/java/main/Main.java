@@ -5,6 +5,7 @@ import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.servlet.ServletContextHandler;
 import org.eclipse.jetty.servlet.ServletHolder;
 import servlets.*;
+import servlets.admin.Login;
 import servlets.admin.Povelitel;
 
 /**
@@ -21,6 +22,7 @@ public class Main {
         Result result = new Result();
         Index index = new Index();
         Povelitel povelitel = new Povelitel();
+        Login login = new Login();
 
         ServletContextHandler handler = new ServletContextHandler();
 
@@ -29,8 +31,9 @@ public class Main {
         handler.addServlet(new ServletHolder(payment), "/payment.html");
         handler.addServlet(new ServletHolder(checkout), "/checkout.html");
         handler.addServlet(new ServletHolder(result), "/result.html");
-        handler.addServlet(new ServletHolder(index), "/");
         handler.addServlet(new ServletHolder(povelitel), "/tu/povelitel.html");
+        handler.addServlet(new ServletHolder(login), "/l.html");
+        handler.addServlet(new ServletHolder(index), "/");
 
         Server server = new Server(80);
 

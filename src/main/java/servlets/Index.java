@@ -18,6 +18,7 @@ public class Index extends HttpServlet {
         HashMap res = new HashMap();
         response.setCharacterEncoding("utf-8");
         response.getWriter().println(PageGenerator.instance().getPage("index.html", res));
+        //response.getWriter().println(PageGenerator.instance().getPage("error.html", res));
         response.setContentType("text/html;charset=utf-8");
         response.setStatus(HttpServletResponse.SC_OK);
     }

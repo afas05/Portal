@@ -60,7 +60,9 @@ public class Payment extends HttpServlet{
                          System.out.println("-----Razbanil " + vk);
                          dBservice.addUser(vk);
                          Thread.sleep(334);
-                     } catch (ApiException e) {
+                     } /*catch (ApiAuthValidationException e) {
+                         тут прописать получение токена
+                     } */catch (ApiException e) {
                          System.out.println("-----Ne Razbanil " + vk);
                          e.printStackTrace();
                      }
